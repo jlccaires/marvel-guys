@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/nav_main"
+        app:startDestination="@id/mainFragment">
+
+    <fragment
+            android:id="@+id/mainFragment"
+            android:name="com.jlccaires.marvelguys.ui.main.MainFragment"
+            android:label="@string/app_name">
+        <action
+                android:id="@+id/action_mainFragment_to_characterDetailFragment"
+                app:destination="@id/characterDetailFragment" />
+    </fragment>
+    <fragment
+            android:id="@+id/characterDetailFragment"
+            android:name="com.jlccaires.marvelguys.ui.character_detail.CharacterDetailFragment">
+        <argument
+                android:name="characterId"
+                app:argType="integer" />
+    </fragment>
+</navigation>

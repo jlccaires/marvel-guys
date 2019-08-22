@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/materialCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="4dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:layout_marginBottom="4dp"
+        android:layout_margin="2dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <ImageView
+                android:id="@+id/imgCharacter"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+        <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha=".6"
+                android:background="#000"
+                app:layout_constraintBottom_toBottomOf="@id/imgCharacter"
+                app:layout_constraintEnd_toEndOf="@id/imgCharacter"
+                app:layout_constraintStart_toStartOf="@id/imgCharacter"
+                app:layout_constraintTop_toTopOf="@id/txvName" />
+
+        <TextView
+                android:id="@+id/txvName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:padding="8dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                app:layout_constraintBottom_toBottomOf="@id/imgCharacter"
+                app:layout_constraintEnd_toStartOf="@+id/togFav"
+                app:layout_constraintStart_toStartOf="@id/imgCharacter"
+                app:layout_constraintTop_toTopOf="@id/imgCharacter"
+                tools:text="Character 1"
+                app:layout_constraintVertical_bias="1.0" />
+
+        <ToggleButton
+                android:id="@+id/togFav"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:text=""
+                android:textOn=""
+                android:textOff=""
+                android:padding="8dp"
+                android:background="@drawable/ic_star_selector"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/imgCharacter"
+                app:layout_constraintTop_toTopOf="@id/txvName"
+                android:checked="false" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
