@@ -5,9 +5,9 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.jlccaires.marvelguys.data.db.dao.CharacterDao
-import com.jlccaires.marvelguys.data.db.entity.Character
+import com.jlccaires.marvelguys.data.db.entity.CharacterEntity
 
-@Database(entities = [Character::class], version = 1, exportSchema = false)
+@Database(entities = [CharacterEntity::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     companion object {

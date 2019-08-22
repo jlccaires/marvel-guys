@@ -4,7 +4,7 @@ import android.util.Log
 import com.jlccaires.marvelguys.addTo
 import com.jlccaires.marvelguys.data.api.MarvelRepository
 import com.jlccaires.marvelguys.data.db.dao.CharacterDao
-import com.jlccaires.marvelguys.data.db.entity.Character
+import com.jlccaires.marvelguys.data.db.entity.CharacterEntity
 import com.jlccaires.marvelguys.ui.vo.CharacterVo
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -25,7 +25,7 @@ class CharacterListPresenter(
             .subscribeOn(Schedulers.io())
             .toObservable()
             .flatMapIterable { it.data.results }
-            .flatMap { dto ->
+            .flatMapSingle { dto ->
                 charactersDao.exists(dto.id)
                     .subscribeOn(Schedulers.io())
                     .map {
@@ -36,10 +36,8 @@ class CharacterListPresenter(
                             it > 0
                         )
                     }
-                    .toObservable()
             }
             .toSortedList { o1, o2 -> o1.name.compareTo(o2.name) }
-            .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
@@ -54,10 +52,10 @@ class CharacterListPresenter(
     }
 
     override fun handleFavorite(character: CharacterVo, checked: Boolean) {
-        val entity = Character(character.id, character.name)
+        val entity = CharacterEntity(character.id, character.name, character.thumbUrl)
 
         (if (checked) charactersDao.insert(entity)
-        else charactersDao.delete(entity))
+        else charactersDao.delete(entity.id))
             .subscribeOn(Schedulers.io())
             .subscribe(
                 {

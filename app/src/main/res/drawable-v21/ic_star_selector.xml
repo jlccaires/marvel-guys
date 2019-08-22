@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+        android:color="#DEDEDE">
+    <item>
+        <selector>
+            <item
+                    android:drawable="@drawable/ic_star_filled"
+                    android:state_checked="true" />
+            <item
+                    android:drawable="@drawable/ic_star_empty"
+                    android:state_checked="false" />
+        </selector>
+    </item>
+</ripple>

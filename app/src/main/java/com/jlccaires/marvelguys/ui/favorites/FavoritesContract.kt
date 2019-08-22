@@ -10,6 +10,7 @@ interface FavoritesContract {
 
     interface Presenter {
         fun getFavorites()
+        fun handleFavorite(vo: CharacterVo)
         fun dispose()
     }
 }

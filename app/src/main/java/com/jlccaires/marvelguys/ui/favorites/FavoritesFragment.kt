@@ -31,7 +31,8 @@ class FavoritesFragment : BaseFragment(R.layout.fragment_favorites), FavoritesCo
                 )
             )
         }
-        mAdapter.onFavStateChange = { character: CharacterVo, checked: Boolean ->
+        mAdapter.onFavStateChange = { character: CharacterVo, _: Boolean ->
+            presenter.handleFavorite(character)
         }
         presenter.getFavorites()
     }
