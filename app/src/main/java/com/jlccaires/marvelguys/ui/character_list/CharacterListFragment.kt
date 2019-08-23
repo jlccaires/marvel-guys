@@ -24,33 +24,36 @@ class CharacterListFragment : BaseFragment(R.layout.fragment_character_list),
     private val presenter: CharacterContract.Presenter by inject { parametersOf(this) }
 
     private var searchString: String? = null
-    private val endlessListener: EndlessRecyclerOnScrollListener =
-        object : EndlessRecyclerOnScrollListener() {
-            override fun onLoadMore() {
-                presenter.listCharacters(mAdapter.dataset.size, searchString)
-            }
-        }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
         rcvCharacters.apply {
             layoutManager = GridLayoutManager(activity, 2)
             adapter = mAdapter
-            addOnScrollListener(endlessListener)
         }
         swipeRefresh.setOnRefreshListener {
             presenter.listCharacters(name = searchString)
         }
-        mAdapter.onClick = {
-            findNavController().navigate(
-                MainFragmentDirections.actionMainFragmentToCharacterDetailFragment(
-                    it.id
+        mAdapter.apply {
+            setPreLoadNumber(4)
+            loadMoreEnd()
+            onClick = {
+                findNavController().navigate(
+                    MainFragmentDirections.actionMainFragmentToCharacterDetailFragment(
+                        it.id
+                    )
                 )
+            }
+            onFavStateChange = { character: CharacterVo, checked: Boolean ->
+                presenter.handleFavorite(character, checked)
+            }
+            mAdapter.setOnLoadMoreListener(
+                {
+                    presenter.listCharacters(mAdapter.data.size, searchString)
+                }, rcvCharacters
             )
         }
-        mAdapter.onFavStateChange = { character: CharacterVo, checked: Boolean ->
-            presenter.handleFavorite(character, checked)
-        }
+
         presenter.listCharacters()
     }
 
@@ -89,20 +92,21 @@ class CharacterListFragment : BaseFragment(R.layout.fragment_character_list),
     }
 
     override fun showItems(items: List<CharacterVo>) {
-        mAdapter.addItems(items)
+        if (items.isEmpty()) {
+            mAdapter.loadMoreEnd(true)
+        }
+        mAdapter.addData(items)
     }
 
     override fun showLoading() {
-        bottomProgress.visibility = View.VISIBLE
     }
 
     override fun hideLoading() {
         swipeRefresh.isRefreshing = false
-        bottomProgress.visibility = View.GONE
+        mAdapter.loadMoreComplete()
     }
 
     override fun clearDataset() {
         mAdapter.clear()
-        endlessListener.mLoading = false
     }
 }

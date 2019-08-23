@@ -2,5 +2,5 @@
     <string name="app_name">Marvel Guys</string>
     <string name="characters">Characters</string>
     <string name="favorites">Favorites</string>
-
+    <string name="brvah_loading">Loading…</string>
 </resources>

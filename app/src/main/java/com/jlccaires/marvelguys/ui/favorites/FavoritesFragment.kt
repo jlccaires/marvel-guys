@@ -10,7 +10,8 @@ import com.jlccaires.marvelguys.ui.BaseFragment
 import com.jlccaires.marvelguys.ui.character_list.CharacterListAdapter
 import com.jlccaires.marvelguys.ui.main.MainFragmentDirections
 import com.jlccaires.marvelguys.ui.vo.CharacterVo
-import kotlinx.android.synthetic.main.fragment_character_list.*
+import kotlinx.android.synthetic.main.fragment_character_list.rcvCharacters
+import kotlinx.android.synthetic.main.fragment_favorites.*
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 

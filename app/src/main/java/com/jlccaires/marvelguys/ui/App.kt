@@ -2,7 +2,6 @@ package com.jlccaires.marvelguys.ui
 
 import android.app.Application
 import androidx.work.Configuration
-import com.jlccaires.marvelguys.BuildConfig
 import com.jlccaires.marvelguys.di.AppModule
 import com.squareup.picasso.OkHttp3Downloader
 import com.squareup.picasso.Picasso
@@ -20,10 +19,8 @@ class App : Application(), Configuration.Provider {
             modules(AppModule.instance)
         }
         val picasso = Picasso.Builder(this)
-            .indicatorsEnabled(BuildConfig.DEBUG)
             .downloader(OkHttp3Downloader(get<OkHttpClient>()))
             .build()
-
         Picasso.setSingletonInstance(picasso)
     }
 
