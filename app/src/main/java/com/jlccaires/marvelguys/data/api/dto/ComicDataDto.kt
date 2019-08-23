@@ -10,9 +10,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 For support, please feel free to contact me at https://www.linkedin.com/in/syedabsar */
 package com.jlccaires.marvelguys.data.api.dto
 
-data class ComicsDto(
-    val available: Int,
-    val collectionURI: String,
-    val items: List<ItemsDto>,
-    val returned: Int
+data class ComicDataDto(
+
+    val offset: Int,
+    val limit: Int,
+    val total: Int,
+    val count: Int,
+    val results: List<ComicDto>
 )

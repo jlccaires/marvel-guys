@@ -9,5 +9,7 @@ ext {
     picasso_version = '2.71828'
     nav_version = '2.2.0-alpha01'
     okhttp_logging_version = '3.12.1'
-    room_version = "2.2.0-alpha02"
+    room_version = "2.2.0-beta01"
+    work_version = "2.2.0"
+    moshi_version = "2.4.0"
 }

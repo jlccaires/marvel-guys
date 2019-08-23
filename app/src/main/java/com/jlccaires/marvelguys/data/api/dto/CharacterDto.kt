@@ -16,11 +16,5 @@ data class CharacterDto(
     val name: String,
     val description: String,
     val modified: String,
-    val thumbnail: ThumbnailDto,
-    val resourceURI: String,
-    val comics: ComicsDto,
-    val series: SeriesDto,
-    val stories: StoriesDto,
-    val events: EventsDto,
-    val urls: List<UrlsDto>
+    val thumbnail: ThumbnailDto
 )

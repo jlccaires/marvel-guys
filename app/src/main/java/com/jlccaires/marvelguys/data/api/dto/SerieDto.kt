@@ -10,10 +10,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 For support, please feel free to contact me at https://www.linkedin.com/in/syedabsar */
 package com.jlccaires.marvelguys.data.api.dto
 
-data class StoriesDto(
-
-    val available: Int,
-    val collectionURI: String,
-    val items: List<ItemsDto>,
-    val returned: Int
+data class SerieDto(
+    val id: Int,
+    val title: String,
+    val thumbnail: ThumbnailDto
 )

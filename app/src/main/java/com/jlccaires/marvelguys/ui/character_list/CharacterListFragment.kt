@@ -78,6 +78,11 @@ class CharacterListFragment : BaseFragment(R.layout.fragment_character_list),
         return super.onCreateOptionsMenu(menu, inflater)
     }
 
+    override fun onResume() {
+        super.onResume()
+        presenter.listCharacters(name = searchString)
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         presenter.dispose()
@@ -97,7 +102,7 @@ class CharacterListFragment : BaseFragment(R.layout.fragment_character_list),
     }
 
     override fun clearDataset() {
-        endlessListener.mLoading = false
         mAdapter.clear()
+        endlessListener.mLoading = false
     }
 }

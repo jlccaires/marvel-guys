@@ -2,7 +2,6 @@ package com.jlccaires.marvelguys.di
 
 import com.jlccaires.marvelguys.BuildConfig
 import com.jlccaires.marvelguys.data.api.MarvelAPI
-import com.jlccaires.marvelguys.data.api.MarvelRepository
 import com.jlccaires.marvelguys.data.db.AppDatabase
 import com.jlccaires.marvelguys.md5
 import com.jlccaires.marvelguys.ui.character_list.CharacterContract
@@ -15,7 +14,8 @@ import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
+import java.util.concurrent.TimeUnit
 
 object AppModule {
 
@@ -23,9 +23,10 @@ object AppModule {
 
         single {
             val logInterceptor = HttpLoggingInterceptor()
-            logInterceptor.level = HttpLoggingInterceptor.Level.BODY
+            logInterceptor.level = HttpLoggingInterceptor.Level.BASIC
 
             OkHttpClient.Builder()
+                .callTimeout(20, TimeUnit.SECONDS)
                 .addInterceptor(logInterceptor)
                 .addInterceptor { chain ->
                     val request = chain.request()
@@ -53,15 +54,11 @@ object AppModule {
         single {
             Retrofit.Builder()
                 .baseUrl(BuildConfig.API_URL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(MoshiConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(get())
                 .build()
                 .create(MarvelAPI::class.java)
-        }
-
-        single {
-            MarvelRepository(get())
         }
 
         single {
@@ -70,6 +67,14 @@ object AppModule {
 
         single {
             get<AppDatabase>().characterDao()
+        }
+
+        single {
+            get<AppDatabase>().comicsDao()
+        }
+
+        single {
+            get<AppDatabase>().seriesDao()
         }
 
         factory {

@@ -10,10 +10,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 For support, please feel free to contact me at https://www.linkedin.com/in/syedabsar */
 package com.jlccaires.marvelguys.data.api.dto
 
-data class EventsDto(
+data class ComicResponseDto(
 
-    val available: Int,
-    val collectionURI: String,
-    val items: List<ItemsDto>,
-    val returned: Int
+    val code: Int,
+    val status: String,
+    val copyright: String,
+    val attributionText: String,
+    val attributionHTML: String,
+    val etag: String,
+    val data: ComicDataDto
 )

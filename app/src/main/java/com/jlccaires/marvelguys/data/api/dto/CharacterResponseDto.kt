@@ -10,8 +10,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 For support, please feel free to contact me at https://www.linkedin.com/in/syedabsar */
 package com.jlccaires.marvelguys.data.api.dto
 
-data class UrlsDto(
+data class CharacterResponseDto(
 
-    val type: String,
-    val url: String
+    val code: Int,
+    val status: String,
+    val copyright: String,
+    val attributionText: String,
+    val attributionHTML: String,
+    val etag: String,
+    val data: CharacterDataDto
 )
