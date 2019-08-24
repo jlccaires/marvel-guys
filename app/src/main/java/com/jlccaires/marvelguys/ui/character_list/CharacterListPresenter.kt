@@ -1,5 +1,7 @@
 package com.jlccaires.marvelguys.ui.character_list
 
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.work.ExistingWorkPolicy
@@ -22,6 +24,7 @@ import io.reactivex.schedulers.Schedulers
 class CharacterListPresenter(
     private val view: CharacterContract.View,
     private val api: MarvelAPI,
+    private val cm: ConnectivityManager,
     private val workManager: WorkManager,
     private val charactersDao: CharacterDao
 ) : CharacterContract.Presenter {
@@ -47,7 +50,19 @@ class CharacterListPresenter(
             .addTo(disposables)
     }
 
+    private fun hasConnection(): Boolean {
+        val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
+        return activeNetwork?.isConnected == true
+    }
+
     override fun listCharacters(offset: Int, name: String?) {
+
+        if (!hasConnection()) {
+            view.clearDataset()
+            view.showConnectionError()
+            return
+        }
+
         view.showLoading()
         if (offset == 0) view.clearDataset()
         api.listCharacters(offset, name)
@@ -80,7 +95,8 @@ class CharacterListPresenter(
                     view.hideLoading()
                 },
                 {
-
+                    view.clearDataset()
+                    view.showServerError()
                 }
             )
             .addTo(disposables)

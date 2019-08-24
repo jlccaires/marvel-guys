@@ -3,4 +3,8 @@
     <string name="characters">Characters</string>
     <string name="favorites">Favorites</string>
     <string name="brvah_loading">Loading…</string>
+    <string name="no_connection">No connection :(</string>
+    <string name="server_error">Server error!!1</string>
+    <string name="empty_label">Nothing to show</string>
+    <string name="try_again">Try again</string>
 </resources>

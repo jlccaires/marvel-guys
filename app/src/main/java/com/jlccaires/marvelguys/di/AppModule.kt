@@ -1,5 +1,7 @@
 package com.jlccaires.marvelguys.di
 
+import android.content.Context
+import android.net.ConnectivityManager
 import androidx.work.WorkManager
 import com.jlccaires.marvelguys.BuildConfig
 import com.jlccaires.marvelguys.data.api.MarvelAPI
@@ -63,6 +65,10 @@ object AppModule {
         }
 
         single {
+            get<Context>().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        }
+
+        single {
             WorkManager.getInstance(get())
         }
 
@@ -87,7 +93,7 @@ object AppModule {
         }
 
         factory<CharacterContract.Presenter> { (view: CharacterContract.View) ->
-            CharacterListPresenter(view, get(), get(), get())
+            CharacterListPresenter(view, get(), get(), get(), get())
         }
 
         factory<FavoritesContract.Presenter> { (view: FavoritesContract.View) ->

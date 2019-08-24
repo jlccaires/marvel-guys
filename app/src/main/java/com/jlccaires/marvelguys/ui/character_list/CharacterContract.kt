@@ -11,6 +11,8 @@ interface CharacterContract {
         fun clearDataset()
         fun characterSyncStateChange(characterId: Int, syncing: Boolean)
         fun uncheckFavIconFor(characterId: Int)
+        fun showConnectionError()
+        fun showServerError()
     }
 
     interface Presenter {
