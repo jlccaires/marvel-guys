@@ -2,8 +2,9 @@ package com.jlccaires.marvelguys.ui.favorites
 
 import android.util.Log
 import com.jlccaires.marvelguys.addTo
-import com.jlccaires.marvelguys.data.EventBus
 import com.jlccaires.marvelguys.data.db.dao.CharacterDao
+import com.jlccaires.marvelguys.ui.event.EventBus
+import com.jlccaires.marvelguys.ui.event.FavRemovedEvent
 import com.jlccaires.marvelguys.ui.vo.CharacterVo
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

@@ -1,4 +1,4 @@
-package com.jlccaires.marvelguys.data
+package com.jlccaires.marvelguys.ui.event
 
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject

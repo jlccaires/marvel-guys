@@ -6,14 +6,14 @@ import androidx.work.ExistingWorkPolicy
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import com.jlccaires.marvelguys.addTo
-import com.jlccaires.marvelguys.data.EventBus
 import com.jlccaires.marvelguys.data.api.MarvelAPI
 import com.jlccaires.marvelguys.data.db.dao.CharacterDao
 import com.jlccaires.marvelguys.data.db.entity.CharacterEntity
 import com.jlccaires.marvelguys.data.worker.FavoriteSyncWorker
 import com.jlccaires.marvelguys.data.worker.FavoriteSyncWorker.Companion.FAVORITE_WORKER_TAG
 import com.jlccaires.marvelguys.data.worker.FavoriteSyncWorker.Companion.PARAM_ID
-import com.jlccaires.marvelguys.ui.favorites.FavRemovedEvent
+import com.jlccaires.marvelguys.ui.event.EventBus
+import com.jlccaires.marvelguys.ui.event.FavRemovedEvent
 import com.jlccaires.marvelguys.ui.vo.CharacterVo
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
