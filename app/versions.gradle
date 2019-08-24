@@ -12,5 +12,5 @@ ext {
     room_version = "2.2.0-beta01"
     work_version = "2.2.0"
     moshi_version = "2.4.0"
-    recycler_version = "2.9.50"
+    recycler_version = "2.9.49-androidx"
 }

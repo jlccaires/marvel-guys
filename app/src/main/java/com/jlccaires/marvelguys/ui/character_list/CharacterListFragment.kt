@@ -100,24 +100,23 @@ class CharacterListFragment : BaseFragment(R.layout.fragment_character_list),
             }
             return
         }
-        uiState.hide()
         mAdapter.addData(items)
+        mAdapter.loadMoreComplete()
     }
 
     override fun showLoading() {
+        swipeRefresh.isEnabled = false
         if (mAdapter.data.isEmpty()) {
             uiState.progress()
         }
     }
 
     override fun hideLoading() {
-        swipeRefresh.isRefreshing = false
-        mAdapter.loadMoreComplete()
+        swipeRefresh.isEnabled = true
+        uiState.hide()
     }
 
-    override fun clearDataset() {
-        mAdapter.clear()
-    }
+    override fun clearDataset() = mAdapter.clear()
 
     override fun characterSyncStateChange(characterId: Int, syncing: Boolean) {
         val position = mAdapter.data.indexOfFirst { it.id == characterId }
@@ -127,10 +126,14 @@ class CharacterListFragment : BaseFragment(R.layout.fragment_character_list),
     }
 
     override fun uncheckFavIconFor(characterId: Int) {
-        val position = mAdapter.data.indexOfFirst { it.id == characterId }
-        if (position < 0) return
-        mAdapter.getItem(position)?.isFavorite = false
-        mAdapter.notifyItemChanged(position)
+        mAdapter.run {
+            val position = data.indexOfFirst { it.id == characterId }
+            if (position < 0) return
+            val item = getItem(position)
+            item?.isFavorite = false
+            item?.syncing = false
+            mAdapter.notifyItemChanged(position)
+        }
     }
 
     override fun showConnectionError() {

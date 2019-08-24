@@ -19,9 +19,11 @@ class UiStateView private constructor(
         view.run {
             layoutStateParent.visible()
             pgrLoading.gone()
+            imgStatusIcon.visible()
+            txvStatus.visible()
+            btnTryAgain.visible()
             imgStatusIcon.setImageResource(R.drawable.ic_no_connection)
             txvStatus.setText(R.string.no_connection)
-            btnTryAgain.visible()
         }
     }
 
@@ -68,6 +70,7 @@ class UiStateView private constructor(
     }
 
     companion object {
-        fun from(view: View, tryAgainCallback: () -> Unit) = UiStateView(view, tryAgainCallback)
+        fun from(view: View, tryAgainCallback: () -> Unit = {}) =
+            UiStateView(view, tryAgainCallback)
     }
 }

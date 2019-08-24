@@ -6,6 +6,8 @@ interface FavoritesContract {
     interface View {
         fun showFavorites(favorites: List<CharacterVo>)
         fun hideLoading()
+        fun showEmpty()
+        fun showError()
     }
 
     interface Presenter {

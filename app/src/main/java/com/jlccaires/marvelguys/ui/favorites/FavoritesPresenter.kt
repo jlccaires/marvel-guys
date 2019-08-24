@@ -1,6 +1,5 @@
 package com.jlccaires.marvelguys.ui.favorites
 
-import android.util.Log
 import com.jlccaires.marvelguys.addTo
 import com.jlccaires.marvelguys.data.db.dao.CharacterDao
 import com.jlccaires.marvelguys.ui.event.EventBus
@@ -23,13 +22,18 @@ class FavoritesPresenter(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { list ->
-                    view.showFavorites(list.map {
-                        CharacterVo(it.id, it.name, it.thumbUrl, true, it.syncing)
-                    })
+                    view.showFavorites(
+                        list.map {
+                            CharacterVo(it.id, it.name, it.thumbUrl, true, it.syncing)
+                        }
+                    )
                     view.hideLoading()
+                    if (list.isEmpty()) {
+                        view.showEmpty()
+                    }
                 },
                 {
-                    Log.e("Favs", "", it)
+                    view.showError()
                 }
             )
             .addTo(disposables)

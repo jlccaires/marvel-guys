@@ -2,7 +2,6 @@ package com.jlccaires.marvelguys.ui.character_list
 
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
-import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.work.ExistingWorkPolicy
 import androidx.work.WorkInfo
@@ -63,8 +62,9 @@ class CharacterListPresenter(
             return
         }
 
-        view.showLoading()
         if (offset == 0) view.clearDataset()
+        view.showLoading()
+
         api.listCharacters(offset, name)
             .subscribeOn(Schedulers.io())
             .toObservable()
@@ -91,10 +91,11 @@ class CharacterListPresenter(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
-                    view.showItems(it)
                     view.hideLoading()
+                    view.showItems(it)
                 },
                 {
+                    view.hideLoading()
                     view.clearDataset()
                     view.showServerError()
                 }
@@ -103,18 +104,15 @@ class CharacterListPresenter(
     }
 
     override fun handleFavorite(character: CharacterVo, checked: Boolean) {
-        val cb: (error: Boolean) -> Unit = {
-            Log.i("Favorite", "Save success: ${!it}")
-        }
-        if (checked) saveFavorite(character, cb)
-        else deleteFavorite(character.id, cb)
+        if (checked) saveFavorite(character)
+        else deleteFavorite(character.id)
     }
 
     override fun dispose() {
         disposables.clear()
     }
 
-    private fun saveFavorite(character: CharacterVo, cb: (Boolean) -> Unit) {
+    private fun saveFavorite(character: CharacterVo) {
 
         api.getCharacter(character.id)
             .subscribeOn(Schedulers.io())
@@ -134,7 +132,7 @@ class CharacterListPresenter(
             }
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
+            .subscribe {
 
                 workManager.enqueueUniqueWork(
                     character.id.toString(),
@@ -142,19 +140,18 @@ class CharacterListPresenter(
                     FavoriteSyncWorker.create(character.id)
                 )
 
-                view.characterSyncStateChange(character.id, true)
+//                view.characterSyncStateChange(character.id, true)
 
-                cb(false)
-            }, { cb(true) })
+            }
             .addTo(disposables)
     }
 
-    private fun deleteFavorite(id: Int, cb: (Boolean) -> Unit) {
+    private fun deleteFavorite(id: Int) {
         workManager.cancelUniqueWork(id.toString())
         charactersDao.delete(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ cb(false) }, { cb(true) })
+            .subscribe()
             .addTo(disposables)
     }
 

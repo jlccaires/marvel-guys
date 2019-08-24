@@ -5,13 +5,12 @@ import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.jlccaires.marvelguys.R
-import com.jlccaires.marvelguys.gone
 import com.jlccaires.marvelguys.ui.BaseFragment
 import com.jlccaires.marvelguys.ui.character_list.CharacterListAdapter
 import com.jlccaires.marvelguys.ui.main.MainFragmentDirections
+import com.jlccaires.marvelguys.ui.util.UiStateView
 import com.jlccaires.marvelguys.ui.vo.CharacterVo
-import kotlinx.android.synthetic.main.fragment_character_list.rcvCharacters
-import kotlinx.android.synthetic.main.fragment_favorites.*
+import kotlinx.android.synthetic.main.fragment_character_list.*
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
@@ -20,7 +19,10 @@ class FavoritesFragment : BaseFragment(R.layout.fragment_favorites), FavoritesCo
     private val presenter: FavoritesContract.Presenter by inject { parametersOf(this) }
     private val mAdapter: CharacterListAdapter by inject()
 
+    private lateinit var uiState: UiStateView
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        uiState = UiStateView.from(view)
         rcvCharacters.apply {
             layoutManager = GridLayoutManager(activity, 2)
             adapter = mAdapter
@@ -47,7 +49,15 @@ class FavoritesFragment : BaseFragment(R.layout.fragment_favorites), FavoritesCo
         mAdapter.setItems(favorites)
     }
 
+    override fun showError() {
+        uiState.error()
+    }
+
+    override fun showEmpty() {
+        uiState.empty()
+    }
+
     override fun hideLoading() {
-        bottomProgress.gone()
+        uiState.hide()
     }
 }
