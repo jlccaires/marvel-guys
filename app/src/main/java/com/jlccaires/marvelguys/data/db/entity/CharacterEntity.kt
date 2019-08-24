@@ -9,5 +9,6 @@ data class CharacterEntity(
     val id: Int,
     val name: String,
     val description: String,
-    val thumbUrl: String
+    val thumbUrl: String,
+    val syncing: Boolean = true
 )

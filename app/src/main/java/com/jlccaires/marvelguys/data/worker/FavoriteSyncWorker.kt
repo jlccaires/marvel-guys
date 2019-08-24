@@ -1,9 +1,10 @@
-package com.jlccaires.marvelguys.data.workmanager
+package com.jlccaires.marvelguys.data.worker
 
 import android.content.Context
 import android.util.Log
 import androidx.work.*
 import com.jlccaires.marvelguys.data.api.MarvelAPI
+import com.jlccaires.marvelguys.data.db.dao.CharacterDao
 import com.jlccaires.marvelguys.data.db.dao.ComicsDao
 import com.jlccaires.marvelguys.data.db.dao.SeriesDao
 import com.jlccaires.marvelguys.data.db.entity.ComicEntity
@@ -22,6 +23,7 @@ class FavoriteSyncWorker(
 ) : RxWorker(appContext, workerParams), KoinComponent {
 
     private val api: MarvelAPI by inject()
+    private val characterDao: CharacterDao by inject()
     private val comicsDao: ComicsDao by inject()
     private val seriesDao: SeriesDao by inject()
 
@@ -34,17 +36,8 @@ class FavoriteSyncWorker(
                 api.getComics(characterId, page * 100)
                     .retry(3)
                     .subscribeOn(Schedulers.io())
-                    .doOnSuccess {
-                        Log.i(
-                            FavoriteSyncWorker::class.java.simpleName,
-                            "total ${it.data.total}  offset ${it.data.offset} count ${it.data.count}"
-                        )
-                    }
             }
             .takeUntil { it.data.total == it.data.offset + it.data.count }
-            .doOnNext {
-                Log.i(FavoriteSyncWorker::class.java.simpleName, "page")
-            }
             .map { result ->
                 result.data.results.map {
                     ComicEntity(
@@ -55,15 +48,9 @@ class FavoriteSyncWorker(
                     )
                 }
             }
-            .doOnNext {
-                Log.i(FavoriteSyncWorker::class.java.simpleName, "mapped")
-            }
             .concatMapCompletable {
-                Log.i(FavoriteSyncWorker::class.java.simpleName, "saving")
                 comicsDao.insert(it)
-                    .doOnComplete {
-                        Log.i(FavoriteSyncWorker::class.java.simpleName, "saved")
-                    }
+                    .subscribeOn(Schedulers.io())
             }
 
 
@@ -91,7 +78,17 @@ class FavoriteSyncWorker(
 
         return Completable.mergeArray(comicsSource, seriesSource)
             .subscribeOn(Schedulers.computation())
-            .toSingleDefault(Result.success())
+            .concatWith {
+                characterDao.byId(characterId)
+                    .subscribeOn(Schedulers.io())
+                    .flatMapCompletable {
+                        characterDao.update(it.copy(syncing = false))
+                            .subscribeOn(Schedulers.io())
+
+                    }
+                    .subscribe(it)
+            }
+            .toSingleDefault(Result.success(workDataOf(PARAM_ID to characterId)))
             .onErrorReturn { Result.retry() }
             .doOnError {
                 Log.e(FavoriteSyncWorker::class.java.simpleName, "", it)
@@ -99,6 +96,7 @@ class FavoriteSyncWorker(
     }
 
     companion object {
+        const val FAVORITE_WORKER_TAG = "FAVORITE_WORKER_TAG"
         const val PARAM_ID = "PARAM_ID"
 
         fun create(characterId: Int): OneTimeWorkRequest {
@@ -117,7 +115,7 @@ class FavoriteSyncWorker(
                     OneTimeWorkRequest.MIN_BACKOFF_MILLIS,
                     TimeUnit.MILLISECONDS
                 )
-                .addTag(characterId.toString())
+                .addTag(FAVORITE_WORKER_TAG)
                 .build()
         }
     }

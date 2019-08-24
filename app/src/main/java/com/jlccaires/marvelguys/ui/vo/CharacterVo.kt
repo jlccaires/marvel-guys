@@ -4,5 +4,6 @@ data class CharacterVo(
     val id: Int,
     val name: String,
     val thumbUrl: String,
-    val isFavorite: Boolean = false
+    var isFavorite: Boolean = false,
+    var syncing: Boolean = false
 )

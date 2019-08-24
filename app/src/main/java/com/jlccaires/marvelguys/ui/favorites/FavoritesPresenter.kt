@@ -22,7 +22,7 @@ class FavoritesPresenter(
             .subscribe(
                 { list ->
                     view.showFavorites(list.map {
-                        CharacterVo(it.id, it.name, it.thumbUrl, true)
+                        CharacterVo(it.id, it.name, it.thumbUrl, true, it.syncing)
                     })
                     view.hideLoading()
                 },

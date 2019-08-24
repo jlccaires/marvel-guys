@@ -1,5 +1,6 @@
 package com.jlccaires.marvelguys.di
 
+import androidx.work.WorkManager
 import com.jlccaires.marvelguys.BuildConfig
 import com.jlccaires.marvelguys.data.api.MarvelAPI
 import com.jlccaires.marvelguys.data.db.AppDatabase
@@ -62,6 +63,10 @@ object AppModule {
         }
 
         single {
+            WorkManager.getInstance(get())
+        }
+
+        single {
             AppDatabase.getDatabase(get())
         }
 
@@ -82,7 +87,7 @@ object AppModule {
         }
 
         factory<CharacterContract.Presenter> { (view: CharacterContract.View) ->
-            CharacterListPresenter(view, get(), get())
+            CharacterListPresenter(view, get(), get(), get())
         }
 
         factory<FavoritesContract.Presenter> { (view: FavoritesContract.View) ->

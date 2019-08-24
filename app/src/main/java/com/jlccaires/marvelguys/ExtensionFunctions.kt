@@ -15,6 +15,10 @@ fun Disposable.addTo(compositeDisposable: CompositeDisposable) {
     compositeDisposable.add(this)
 }
 
+fun View.visible() {
+    visibility = View.VISIBLE
+}
+
 fun View.gone() {
     visibility = View.GONE
 }

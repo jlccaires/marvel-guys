@@ -109,4 +109,11 @@ class CharacterListFragment : BaseFragment(R.layout.fragment_character_list),
     override fun clearDataset() {
         mAdapter.clear()
     }
+
+    override fun characterSyncStateChange(characterId: Int, syncing: Boolean) {
+        val position = mAdapter.data.indexOfFirst { it.id == characterId }
+        if (position < 0) return
+        mAdapter.getItem(position)?.syncing = syncing
+        mAdapter.notifyItemChanged(position)
+    }
 }

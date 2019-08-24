@@ -29,6 +29,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageView
+                android:id="@+id/imgSync"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@id/txvName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_sync" />
+
         <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"
