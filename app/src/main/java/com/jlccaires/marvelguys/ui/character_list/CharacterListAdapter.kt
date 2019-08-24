@@ -24,6 +24,7 @@ class CharacterListAdapter :
             togFav.run {
                 setOnCheckedChangeListener(null)
                 isChecked = item.isFavorite
+                isEnabled = !item.syncing
                 setOnCheckedChangeListener { _, isChecked ->
                     item.isFavorite = isChecked
                     item.syncing = isChecked
