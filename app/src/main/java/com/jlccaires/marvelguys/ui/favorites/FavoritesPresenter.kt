@@ -2,6 +2,7 @@ package com.jlccaires.marvelguys.ui.favorites
 
 import android.util.Log
 import com.jlccaires.marvelguys.addTo
+import com.jlccaires.marvelguys.data.EventBus
 import com.jlccaires.marvelguys.data.db.dao.CharacterDao
 import com.jlccaires.marvelguys.ui.vo.CharacterVo
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -37,7 +38,9 @@ class FavoritesPresenter(
         characterDao.delete(vo.id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe()
+            .subscribe {
+                EventBus.post(FavRemovedEvent(vo.id))
+            }
             .addTo(disposables)
     }
 

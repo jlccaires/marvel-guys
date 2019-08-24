@@ -10,6 +10,7 @@ interface CharacterContract {
         fun hideLoading()
         fun clearDataset()
         fun characterSyncStateChange(characterId: Int, syncing: Boolean)
+        fun uncheckFavIconFor(characterId: Int)
     }
 
     interface Presenter {

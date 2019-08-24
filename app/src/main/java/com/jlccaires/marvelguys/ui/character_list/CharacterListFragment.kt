@@ -81,11 +81,6 @@ class CharacterListFragment : BaseFragment(R.layout.fragment_character_list),
         return super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onResume() {
-        super.onResume()
-        presenter.listCharacters(name = searchString)
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         presenter.dispose()
@@ -114,6 +109,13 @@ class CharacterListFragment : BaseFragment(R.layout.fragment_character_list),
         val position = mAdapter.data.indexOfFirst { it.id == characterId }
         if (position < 0) return
         mAdapter.getItem(position)?.syncing = syncing
+        mAdapter.notifyItemChanged(position)
+    }
+
+    override fun uncheckFavIconFor(characterId: Int) {
+        val position = mAdapter.data.indexOfFirst { it.id == characterId }
+        if (position < 0) return
+        mAdapter.getItem(position)?.isFavorite = false
         mAdapter.notifyItemChanged(position)
     }
 }
