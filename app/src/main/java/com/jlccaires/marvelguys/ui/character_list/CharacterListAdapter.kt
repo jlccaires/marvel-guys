@@ -21,10 +21,12 @@ class CharacterListAdapter :
     override fun convert(helper: BaseViewHolder, item: CharacterVo) {
         helper.itemView.apply {
             txvName.text = item.name
+
             togFav.run {
                 setOnCheckedChangeListener(null)
                 isChecked = item.isFavorite
                 isEnabled = !item.syncing
+
                 setOnCheckedChangeListener { _, isChecked ->
                     item.isFavorite = isChecked
                     item.syncing = isChecked
@@ -32,12 +34,14 @@ class CharacterListAdapter :
                     onFavStateChange?.invoke(item, isChecked)
                 }
             }
+
             if (item.syncing) {
                 imgSync.startAnimation(AnimationUtils.loadAnimation(context, R.anim.anim_rotate))
                 imgSync.visible()
             } else {
                 imgSync.gone()
             }
+
             Picasso.get()
                 .load(item.thumbUrl)
                 .into(imgCharacter)

@@ -139,9 +139,6 @@ class CharacterListPresenter(
                     ExistingWorkPolicy.KEEP,
                     FavoriteSyncWorker.create(character.id)
                 )
-
-//                view.characterSyncStateChange(character.id, true)
-
             }
             .addTo(disposables)
     }
