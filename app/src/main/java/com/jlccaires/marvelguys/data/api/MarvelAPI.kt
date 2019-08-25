@@ -16,9 +16,17 @@ interface MarvelAPI {
     @GET("characters/{characterId}")
     fun getCharacter(@Path("characterId") characterId: Int): Single<CharacterResponseDto>
 
-    @GET("characters/{characterId}/series?limit=100")
-    fun getSeries(@Path("characterId") characterId: Int, @Query("offset") offset: Int): Single<SerieResponseDto>
+    @GET("characters/{characterId}/series")
+    fun getSeries(
+        @Path("characterId") characterId: Int,
+        @Query("offset") offset: Int,
+        @Query("limit") limit: Int = 100
+    ): Single<SerieResponseDto>
 
     @GET("characters/{characterId}/comics?limit=100")
-    fun getComics(@Path("characterId") characterId: Int, @Query("offset") offset: Int): Single<ComicResponseDto>
+    fun getComics(
+        @Path("characterId") characterId: Int,
+        @Query("offset") offset: Int,
+        @Query("limit") limit: Int = 100
+    ): Single<ComicResponseDto>
 }

@@ -1,4 +1,4 @@
-package com.jlccaires.marvelguys.ui.character_list
+package com.jlccaires.marvelguys.ui.characterList
 
 import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.DiffUtil

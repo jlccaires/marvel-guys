@@ -1,4 +1,4 @@
-package com.jlccaires.marvelguys.ui.character_list
+package com.jlccaires.marvelguys.ui.characterList
 
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
@@ -113,7 +113,6 @@ class CharacterListPresenter(
     }
 
     private fun saveFavorite(character: CharacterVo) {
-
         api.getCharacter(character.id)
             .subscribeOn(Schedulers.io())
             .map { it.data.results.first() }
@@ -144,7 +143,6 @@ class CharacterListPresenter(
     }
 
     private fun deleteFavorite(id: Int) {
-        workManager.cancelUniqueWork(id.toString())
         charactersDao.delete(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

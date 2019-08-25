@@ -28,7 +28,6 @@ class FavoriteSyncWorker(
     private val seriesDao: SeriesDao by inject()
 
     override fun createWork(): Single<Result> {
-
         val characterId = inputData.getInt(PARAM_ID, 0)
 
         val comicsSource = Observable.range(0, 100)
@@ -43,7 +42,7 @@ class FavoriteSyncWorker(
                     ComicEntity(
                         it.id,
                         it.title,
-                        it.thumbnail.run { "$path/standard_xlarge.$extension" },
+                        it.thumbnail.run { "$path/portrait_xlarge.$extension" },
                         characterId
                     )
                 }
@@ -52,7 +51,6 @@ class FavoriteSyncWorker(
                 comicsDao.insert(it)
                     .subscribeOn(Schedulers.io())
             }
-
 
         val seriesSource = Observable.range(0, 100)
             .concatMapSingle { page ->
@@ -66,7 +64,7 @@ class FavoriteSyncWorker(
                     SerieEntity(
                         it.id,
                         it.title,
-                        it.thumbnail.run { "$path/standard_xlarge.$extension" },
+                        it.thumbnail.run { "$path/portrait_xlarge.$extension" },
                         characterId
                     )
                 }

@@ -3,7 +3,7 @@ package com.jlccaires.marvelguys.ui.main
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.jlccaires.marvelguys.ui.character_list.CharacterListFragment
+import com.jlccaires.marvelguys.ui.characterList.CharacterListFragment
 import com.jlccaires.marvelguys.ui.favorites.FavoritesFragment
 
 class MainPagerAdapter(fm: FragmentManager) :

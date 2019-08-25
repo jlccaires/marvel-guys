@@ -7,9 +7,11 @@ import com.jlccaires.marvelguys.BuildConfig
 import com.jlccaires.marvelguys.data.api.MarvelAPI
 import com.jlccaires.marvelguys.data.db.AppDatabase
 import com.jlccaires.marvelguys.md5
-import com.jlccaires.marvelguys.ui.character_list.CharacterContract
-import com.jlccaires.marvelguys.ui.character_list.CharacterListAdapter
-import com.jlccaires.marvelguys.ui.character_list.CharacterListPresenter
+import com.jlccaires.marvelguys.ui.characterDetail.CharacterDetailContract
+import com.jlccaires.marvelguys.ui.characterDetail.CharacterDetailPresenter
+import com.jlccaires.marvelguys.ui.characterList.CharacterContract
+import com.jlccaires.marvelguys.ui.characterList.CharacterListAdapter
+import com.jlccaires.marvelguys.ui.characterList.CharacterListPresenter
 import com.jlccaires.marvelguys.ui.favorites.FavoritesContract
 import com.jlccaires.marvelguys.ui.favorites.FavoritesPresenter
 import okhttp3.OkHttpClient
@@ -98,6 +100,10 @@ object AppModule {
 
         factory<FavoritesContract.Presenter> { (view: FavoritesContract.View) ->
             FavoritesPresenter(view, get())
+        }
+
+        factory<CharacterDetailContract.Presenter> { (view: CharacterDetailContract.View) ->
+            CharacterDetailPresenter(view, get(), get())
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.jlccaires.marvelguys.ui.character_list
+package com.jlccaires.marvelguys.ui.characterList
 
 
 import android.os.Bundle
@@ -46,7 +46,8 @@ class CharacterListFragment : BaseFragment(R.layout.fragment_character_list),
             onClick = {
                 findNavController().navigate(
                     MainFragmentDirections.actionMainFragmentToCharacterDetailFragment(
-                        it.id
+                        it.id,
+                        it.name
                     )
                 )
             }

@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import com.jlccaires.marvelguys.data.db.entity.CharacterAndItemsEntity
 import com.jlccaires.marvelguys.data.db.entity.CharacterEntity
 import io.reactivex.Completable
 import io.reactivex.Flowable
@@ -17,6 +18,9 @@ interface CharacterDao {
 
     @Query("SELECT * FROM Character WHERE id = :id")
     fun byId(id: Int): Maybe<CharacterEntity>
+
+    @Query("SELECT * FROM Character WHERE id = :id")
+    fun embededById(id: Int): Maybe<CharacterAndItemsEntity>
 
     @Insert
     fun insert(character: CharacterEntity): Completable

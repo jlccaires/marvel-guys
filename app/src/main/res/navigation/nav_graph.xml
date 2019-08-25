@@ -13,9 +13,13 @@
     </fragment>
     <fragment
             android:id="@+id/characterDetailFragment"
-            android:name="com.jlccaires.marvelguys.ui.character_detail.CharacterDetailFragment">
+            android:name="com.jlccaires.marvelguys.ui.characterDetail.CharacterDetailFragment"
+            android:label="{characterName}">
         <argument
                 android:name="characterId"
                 app:argType="integer" />
+        <argument
+                android:name="characterName"
+                app:argType="string" />
     </fragment>
 </navigation>

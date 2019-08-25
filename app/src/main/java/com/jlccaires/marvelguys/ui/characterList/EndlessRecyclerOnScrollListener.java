@@ -1,4 +1,4 @@
-package com.jlccaires.marvelguys.ui.character_list;
+package com.jlccaires.marvelguys.ui.characterList;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
