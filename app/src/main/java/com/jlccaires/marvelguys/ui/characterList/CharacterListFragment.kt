@@ -19,10 +19,10 @@ import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
 class CharacterListFragment : BaseFragment(R.layout.fragment_character_list),
-    CharacterContract.View {
+    CharacterListContract.View {
 
     private val mAdapter: CharacterListAdapter by inject()
-    private val presenter: CharacterContract.Presenter by inject { parametersOf(this) }
+    private val presenter: CharacterListContract.Presenter by inject { parametersOf(this) }
 
     private lateinit var uiState: UiStateView
     private var searchString: String? = null

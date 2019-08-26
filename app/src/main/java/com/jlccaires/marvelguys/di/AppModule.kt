@@ -9,8 +9,8 @@ import com.jlccaires.marvelguys.data.db.AppDatabase
 import com.jlccaires.marvelguys.md5
 import com.jlccaires.marvelguys.ui.characterDetail.CharacterDetailContract
 import com.jlccaires.marvelguys.ui.characterDetail.CharacterDetailPresenter
-import com.jlccaires.marvelguys.ui.characterList.CharacterContract
 import com.jlccaires.marvelguys.ui.characterList.CharacterListAdapter
+import com.jlccaires.marvelguys.ui.characterList.CharacterListContract
 import com.jlccaires.marvelguys.ui.characterList.CharacterListPresenter
 import com.jlccaires.marvelguys.ui.favorites.FavoritesContract
 import com.jlccaires.marvelguys.ui.favorites.FavoritesPresenter
@@ -94,7 +94,7 @@ object AppModule {
             CharacterListAdapter()
         }
 
-        factory<CharacterContract.Presenter> { (view: CharacterContract.View) ->
+        factory<CharacterListContract.Presenter> { (view: CharacterListContract.View) ->
             CharacterListPresenter(view, get(), get(), get(), get())
         }
 

@@ -20,13 +20,17 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
+/**
+ * Sim, eu deveria ter criado um model para isso :(
+ * Mas foi o que deu pra fazer nesse tempo!
+ */
 class CharacterListPresenter(
-    private val view: CharacterContract.View,
+    private val view: CharacterListContract.View,
     private val api: MarvelAPI,
     private val cm: ConnectivityManager,
     private val workManager: WorkManager,
     private val charactersDao: CharacterDao
-) : CharacterContract.Presenter {
+) : CharacterListContract.Presenter {
 
     private val disposables = CompositeDisposable()
 
@@ -132,7 +136,6 @@ class CharacterListPresenter(
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-
                 workManager.enqueueUniqueWork(
                     character.id.toString(),
                     ExistingWorkPolicy.KEEP,

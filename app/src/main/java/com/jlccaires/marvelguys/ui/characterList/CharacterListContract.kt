@@ -3,7 +3,7 @@ package com.jlccaires.marvelguys.ui.characterList
 import androidx.lifecycle.LifecycleOwner
 import com.jlccaires.marvelguys.ui.vo.CharacterVo
 
-interface CharacterContract {
+interface CharacterListContract {
     interface View : LifecycleOwner {
         fun showItems(items: List<CharacterVo>)
         fun showLoading()

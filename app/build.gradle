@@ -37,6 +37,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -68,6 +71,7 @@ dependencies {
     implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:$recycler_version"
 
     testImplementation 'junit:junit:4.12'
+    testImplementation "io.mockk:mockk:$mockk_version"
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }

@@ -13,4 +13,5 @@ ext {
     work_version = "2.2.0"
     moshi_version = "2.4.0"
     recycler_version = "2.9.49-androidx"
+    mockk_version = "1.9.3"
 }
