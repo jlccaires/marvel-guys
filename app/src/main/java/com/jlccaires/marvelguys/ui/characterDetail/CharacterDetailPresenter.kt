@@ -46,7 +46,6 @@ class CharacterDetailPresenter(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { entity ->
-                view.loadSuccess()
                 view.showImage(
                     entity.characterEntity
                         .thumbUrl
